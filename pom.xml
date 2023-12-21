@@ -7,7 +7,7 @@
     <groupId>com.github.houbb</groupId>
     <artifactId>sensitive</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.0</version>
+    <version>1.6.0.1</version>
     <modules>
         <module>sensitive-annotation</module>
         <module>sensitive-api</module>
@@ -156,6 +156,21 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${plugin.maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!--compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -313,17 +328,60 @@
 
                 </plugins>
             </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
+
+
+<!--            <distributionManagement>-->
+<!--                <snapshotRepository>-->
+<!--                    <id>oss</id>-->
+<!--                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+<!--                </snapshotRepository>-->
+<!--                <repository>-->
+<!--                    <id>oss</id>-->
+<!--                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--                </repository>-->
+<!--            </distributionManagement>-->
         </profile>
     </profiles>
+
+
+
+    <repositories>
+        <repository>
+            <id>codemao-snapshot</id>
+            <url>https://nexus.codemao.cn/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>codemao-release</id>
+            <name>Nexus</name>
+            <url>https://nexus.codemao.cn/nexus/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+    <distributionManagement>
+        <repository>
+            <id>codemao-release</id>
+            <name>Nexus Repository</name>
+            <url>https://nexus.codemao.cn/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>codemao-snapshot</id>
+            <name>Nexus Repository</name>
+            <url>https://nexus.codemao.cn/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

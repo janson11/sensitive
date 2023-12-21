@@ -60,6 +60,9 @@ public class DefaultContextValueFilter implements ContextValueFilter {
 
         // 信息初始化
         final Field field = context.getField();
+        if(ObjectUtil.isNull(field)) {
+            return value;
+        }
         final Class clazz = context.getBeanClass();
         final List<Field> fieldList = ClassFieldListCache.getInstance().get(clazz);
         sensitiveContext.setCurrentField(field);
