@@ -30,6 +30,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 脱敏服务实现类
@@ -83,6 +84,10 @@ public class SensitiveService<T> implements ISensitive<T> {
     private void handleClassField(final SensitiveContext context,
                                   final Object copyObject,
                                   final Class clazz) {
+        // 如果copyObject为空，则不处理
+        if (Objects.isNull(copyObject)){
+            return;
+        }
         // 每一个实体对应的字段，只对当前 clazz 生效。
         List<Field> fieldList = ClassFieldListCache.getInstance().get(clazz);
         context.setAllFieldList(fieldList);
